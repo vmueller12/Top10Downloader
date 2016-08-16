@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -33,9 +34,14 @@ public class MainActivity extends AppCompatActivity {
         btnParse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Add parse code
                 ParseApplications parseApplications = new ParseApplications(mFileContents);
                 parseApplications.process();
+                ArrayAdapter<Application> arrayAdapter = new ArrayAdapter<Application>(
+                        MainActivity.this, R.layout.list_item, parseApplications.getApplications()
+
+                );
+
+                listApps.setAdapter(arrayAdapter);
             }
         });
         listApps = (ListView) findViewById(R.id.xmlListView);
